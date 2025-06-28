@@ -18,6 +18,7 @@
 ```plaintext
 flask-image-video-sharing/
 ├── app.py
+├── schema.sql
 ├── templates/
 │   ├── base.html
 │   ├── index.html
@@ -62,13 +63,17 @@ flask-image-video-sharing/
    pip install -r requirements.txt
    ```
 
-4. **运行应用**
+4. **初始化数据库**
+
+   应用程序首次启动时会自动创建数据库和表结构，无需手动初始化。
+
+5. **运行应用**
 
    ```bash
    python app.py
    ```
 
-5. **访问应用**
+6. **访问应用**
 
    在浏览器中打开：[http://127.0.0.1:5000](http://127.0.0.1:5000)
 
@@ -149,10 +154,10 @@ flask-image-video-sharing/
 
 ## ⚠️ 注意事项
 
-- **数据持久性**：该应用目前使用内存存储用户和文件信息，程序重启后数据会丢失。建议在生产环境中使用数据库（如 SQLite、MySQL、PostgreSQL）进行持久化存储。
+- **数据持久化**：应用程序使用 SQLite 数据库进行数据持久化。数据库文件 `database.db` 位于应用根目录。
 - **文件权限**：请确保程序有权限在 `static/uploads/images` 和 `static/uploads/videos` 目录下读写。
 - **安全密钥**：请将 `app.config['SECRET_KEY']` 替换为您自己的随机密钥，以确保会话安全。
-- **文件安全**：务必实施文件上传安全检查，防止用户上传恶意文件，建议对文件类型和大小进行验证。
+- **文件安全**：请实施文件上传安全检查，防止用户上传恶意文件，建议对文件类型和大小进行验证。
 - **API 安全性**：在实际应用中，建议对 API 接口添加身份验证和权限控制，防止未授权的访问。
 
 ## 📄 许可证
