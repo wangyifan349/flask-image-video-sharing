@@ -1,0 +1,22 @@
+-- 用户表
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password TEXT NOT NULL
+);
+
+-- 图片文件表
+CREATE TABLE IF NOT EXISTS images (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    filename TEXT NOT NULL,
+    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
+);
+
+-- 视频文件表
+CREATE TABLE IF NOT EXISTS videos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    filename TEXT NOT NULL,
+    FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE
+);
