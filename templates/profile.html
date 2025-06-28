@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}{{ username }}的主页{% endblock %}
+{% block content %}
+<h2 class="mb-4">{{ username }} 的主页</h2>
+
+{% if is_owner %}
+<div class="card mb-4">
+  <div class="card-body">
+    <h4 class="card-title">上传新文件</h4>
+    <form method="POST" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <div class="input-group">
+        {{ form.file(class="form-control") }}
+        <button type="submit" class="btn btn-primary">{{ form.submit.label.text }}</button>
+      </div>
+      {% for error in form.file.errors %}
+        <div class="text-danger mt-2">{{ error }}</div>
+      {% endfor %}
+    </form>
+  </div>
+</div>
+{% endif %}
+
+<h4>图片</h4>
+{% if images %}
+<div class="row">
+  {% for image in images %}
+  <div class="col-md-3 media-container">
+    <img src="{{ url_for('uploaded_file', filetype='images', filename=image) }}" alt="image" class="media-thumb rounded border">
+    {% if is_owner %}
+    <form method="POST" action="{{ url_for('delete_file', filetype='images', filename=image) }}" class="mt-2">
+      <button type="submit" class="btn btn-sm btn-outline-danger">删除</button>
+    </form>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>没有上传的图片。</p>
+{% endif %}
+
+<h4 class="mt-5">视频</h4>
+{% if videos %}
+<div class="row">
+  {% for video in videos %}
+  <div class="col-md-3 media-container">
+    <video controls class="media-thumb rounded border">
+      <source src="{{ url_for('uploaded_file', filetype='videos', filename=video) }}">
+      您的浏览器不支持视频标签。
+    </video>
+    {% if is_owner %}
+    <form method="POST" action="{{ url_for('delete_file', filetype='videos', filename=video) }}" class="mt-2">
+      <button type="submit" class="btn btn-sm btn-outline-danger">删除</button>
+    </form>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>没有上传的视频。</p>
+{% endif %}
+
+{% endblock %}
