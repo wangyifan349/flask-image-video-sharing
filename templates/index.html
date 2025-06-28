@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}首页{% endblock %}
+{% block content %}
+  <div class="text-center">
+    <h1 class="mt-5 mb-4">欢迎来到图片和视频分享平台</h1>
+    {% if current_user.is_authenticated %}
+      <p>你好，<strong>{{ current_user.id }}</strong>！</p>
+      <a href="{{ url_for('profile', username=current_user.id) }}" class="btn btn-primary btn-lg mt-3">进入我的主页</a>
+    {% else %}
+      <p>分享你的精彩瞬间，发现更多有趣内容！</p>
+      <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg mt-3">登录</a>
+      <a href="{{ url_for('register') }}" class="btn btn-outline-primary btn-lg mt-3 ms-2">注册</a>
+    {% endif %}
+  </div>
+{% endblock %}
